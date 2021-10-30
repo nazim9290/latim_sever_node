@@ -14,18 +14,18 @@ const uri =
   "mongodb+srv://ogro9290:3zpc5KYpujeWtMkr@cluster0.eanfw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
 async function run() {
   try {
     await client.connect();
     const database = client.db("travel_bd");
-    const tourservice = database.collection("tour");
+    const tour_service = database.collection("tour");
     const username = database.collection("user_name");
     //custom api
     app.get("/tour", async (req, res) => {
-      const cursor = tourservice.find({});
+      const cursor = tour_service.find({});
       const services = await cursor.toArray();
       res.send(services);
       res.json(services);
@@ -36,9 +36,9 @@ async function run() {
     });
 
     app.post("/tour", async (req, res) => {
-      const servic = req.body;
-      console.log(servic);
-      const result = await username.insertOne(servic);
+      const service = req.body;
+      console.log(service);
+      const result = await tour_service.insertOne(service);
       res.json(result);
     });
   } finally {
