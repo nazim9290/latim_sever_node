@@ -88,10 +88,8 @@ async function run() {
       res.send("order api hitted");
     });
     //orderapi
-    app.get("/order/:email", async (req, res) => {
-      const id = req.params.email;
-      const query = { _id: ObjectId(id) };
-      const result = await tour_service.find(query);
+    app.get("/order", async (req, res) => {
+      const cursor = order_user.find({});
       const services = await cursor.toArray();
       res.send(services);
       res.json(services);
